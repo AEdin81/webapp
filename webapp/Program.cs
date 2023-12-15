@@ -2,6 +2,12 @@ using webapp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = "Endpoint=https://azureappconfig0503.azconfig.io;Id=HvL6;Secret=O/ilpcphflUl5zcgwSsGm87rsq0S7Ji3GZSCbVfsEPw=";
+
+builder.Host.ConfigureAppConfiguration(builder =>
+{
+    builder.AddAzureAppConfiguration(connectionString);
+});
 
 builder.Services.AddTransient<IProductService, ProductService>();
 
