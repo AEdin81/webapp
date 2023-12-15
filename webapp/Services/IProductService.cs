@@ -7,4 +7,6 @@ public interface IProductService
 {
     SqlConnection GetConnection();
     List<Product> GetProducts();
+
+    public Task<bool> IsBeta();
 }

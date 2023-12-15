@@ -8,6 +8,7 @@ namespace webapp.Pages
     {
         private readonly IProductService _productService;
         public List<Product> Products;
+        public bool IsBeta;
 
         public IndexModel(IProductService productService)
         {
@@ -15,6 +16,7 @@ namespace webapp.Pages
         }
         public void OnGet()
         {
+            IsBeta = _productService.IsBeta().Result;
             Products = _productService.GetProducts();
         }
     }
