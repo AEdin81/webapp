@@ -5,22 +5,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = "Endpoint=https://azureappconfig0503.azconfig.io;Id=HvL6;Secret=O/ilpcphflUl5zcgwSsGm87rsq0S7Ji3GZSCbVfsEPw=";
 
-builder.Host.ConfigureAppConfiguration(builder =>
+builder.Host.ConfigureAppConfiguration(build =>
 {
-    builder.AddAzureAppConfiguration(options =>
-    {
-        options.Connect(connectionString).UseFeatureFlags();
-    });
+    build.AddAzureAppConfiguration(options => options.Connect(connectionString).UseFeatureFlags());
 });
 
 builder.Services.AddTransient<IProductService, ProductService>();
 
 
 // Add services to the container.
+
 builder.Services.AddRazorPages();
 builder.Services.AddFeatureManagement();
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

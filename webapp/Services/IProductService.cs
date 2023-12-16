@@ -6,7 +6,7 @@ namespace webapp.Services;
 public interface IProductService
 {
     SqlConnection GetConnection();
-    List<Product> GetProducts();
+    Task<List<Product>> GetProducts();
 
     public Task<bool> IsBeta();
 }

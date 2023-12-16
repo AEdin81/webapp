@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using System.Text.Json;
 using Microsoft.FeatureManagement;
 using webapp.Models;
 
@@ -22,45 +23,21 @@ namespace webapp.Services
 
         public async Task<bool> IsBeta()
         {
-            if (await _featureManager.IsEnabledAsync("beta"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var isBeta = await _featureManager.IsEnabledAsync("beta");
+            return isBeta;
         }
 
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-            var conn = GetConnection();
+            var functionUrl = "https://edinfunctionapp0503.azurewebsites.net/api/GetProduct?code=Qj_t4zxrzJ8rygFuz5QN-Zoaw2QN1fZJTpuogHmKxxRUAzFuNCexUw==";
 
-            var products = new List<Product>();
+            using var client = new HttpClient();
 
-            string statement = "SELECT ProductID, ProductName, Quantity FROM Products";
+            var response = await client.GetAsync(functionUrl);
 
-            conn.Open();
+            string content = await response.Content.ReadAsStringAsync();
 
-            var cmd = new SqlCommand(statement, conn);
-
-            using (var reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    var product = new Product
-                    {
-                        ProductID = reader.GetInt32(0),
-                        ProductName = reader.GetString(1),
-                        Quantity = reader.GetInt32(2)
-                    };
-
-                    products.Add(product);
-                }
-            }
-
-            conn.Close();
-            return products;
+            return JsonSerializer.Deserialize<List<Product>>(content);
         }
     }
 }
