@@ -29,7 +29,7 @@ namespace webapp.Services
 
         public async Task<List<Product>> GetProducts()
         {
-            var functionUrl = "https://edinfunctionapp0503.azurewebsites.net/api/GetProduct?code=Qj_t4zxrzJ8rygFuz5QN-Zoaw2QN1fZJTpuogHmKxxRUAzFuNCexUw==";
+            var functionUrl = "https://edinfunctionapp0503.azurewebsites.net/api/GetProducts?code=3GfSX5cHplQfpin4EgQvqqyTQpgkmcS-LD5sAxq7E2oCAzFuE-8WoA==";
 
             using var client = new HttpClient();
 
